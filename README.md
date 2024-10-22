@@ -53,7 +53,7 @@ We tested on Ubuntu 22.04 and Windows 11 using the following:
 ```
 conda create -n hierarchical_3d_gaussians python=3.12 -y
 conda activate hierarchical_3d_gaussians
-# Replace cu121 with cu118 if using CUDA 11.x 
+# 根据使用的cuda版本在下面命令中替换末尾三个数字
 pip install torch==2.3.0 torchvision==0.18.0 torchaudio==2.3.0 --index-url https://download.pytorch.org/whl/cu121 
 pip install -r requirements.txt
 ```
