@@ -48,7 +48,7 @@ For Ubuntu 22.04, install dependencies:
 ```
 sudo apt install cmake libglew-dev libassimp-dev libboost-all-dev libgtk-3-dev  libglfw3-dev libavdevice-dev libavcodec-dev libeigen3-dev libxxf86vm-dev libembree-dev
 ```
-自行源码安装opencv4.5
+自行源码安装opencv4.5，需要opencv contrib
 
 sudo apt install git
 
