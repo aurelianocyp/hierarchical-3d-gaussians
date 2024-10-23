@@ -1,13 +1,5 @@
 
 
-## Roadmap
-Please note that the code release is currently in alpha. We intend to provide fixes for issues that are experienced by users, due to difficulties with setups and/or environments that we did not test on. The below steps were successfully tested on Windows and Ubuntu 22. We appreciate the documentation of issues by users and will try to address them. Furthermore, there are several points that we will integrate in the coming weeks:
-- Datasets: We will add links for large-scale datasets that are currently undergoing auditing.
-- Windows binaries: Once we have sufficiently tested them, we will add pre-compiled binaries for the viewers on Windows.
-- Direct conversion of legacy 3DGS models: we are testing the conversion of scenes trained with vanilla 3DGS to hierarchical models. Once the quality is assured and we have concluded testing, we will document the necessary steps to do so.
-- Streaming from disk: currently, data is streamed on-demand to the GPU, however, the viewed dataset must fit into memory. This can become prohibitive in the hierarchy merger and real-time viewer. We will adapt the code to allow dynamic streaming from disk soon.
-- Reduce real-time viewer resource usage: the storage configuration for the real-time viewer is unoptimized, and so is the speed. Users can define a VRAM budget for the scene, but it is not used as efficiently as it could be. We will iterate towards making sure that higher quality settings can be achieved with lower budgets and better framerates. We will try to make the budget so that it effectively limits the **total** application VRAM, including framebuffer structs.
-
 ## Setup
 
 Make sure to clone the repo using `--recursive`:
@@ -59,6 +51,8 @@ sudo apt install cmake libglew-dev libassimp-dev libboost-all-dev libgtk-3-dev  
 自行源码安装opencv4.5
 
 sudo apt install git
+
+在SIBR_viewers目录下 git clone https://github.com/graphdeco-inria/gaussian-hierarchy然后改目录名为GaussianHierarchy
 
 克隆完下面的库后需要在SIBR_viewers/extlibs/CudaDiffRasterizer/CudaDiffRasterizer中的CMakeLists.txt的14行project CUDA前添加set(CMAKE_CUDA_ARCHITECTURES "native")
 
