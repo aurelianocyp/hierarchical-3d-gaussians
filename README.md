@@ -64,6 +64,8 @@ cmake . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_IBR_HIERARCHYVIEWER=ON -DBUI
 cmake --build build -j --target install --config Release
 ```
 
+如果遇到cannot find -lembree，可查看：https://elenacliu.github.io/post/gaussian_splatting/，或者将SIBR_viewers/src/core/raycaster/CMakeLists.txt的 embree 改成 embree3即可
+
 ## Running the method
 
 Our method has two main stages: Reconstruction, that takes a (usually large) set of images as input and outputs a "merged hierarchy", and [Runtime](#3-real-time-viewer), that displays the full hierarchy in real-time. 
