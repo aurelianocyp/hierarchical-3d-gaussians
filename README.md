@@ -69,6 +69,8 @@ cmake . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_COMPILER=/usr/local/cud
 cmake --build build -j --config Release
 cd ../..
 ```
+这里的cmake好像是分两步，第一步配置，第二步构建。和之前的cmake ..不同。
+
 原始的cmakelist可能会报错，需要字在project行前添加
 ```
 set(CMAKE_CXX_COMPILER "g++")
