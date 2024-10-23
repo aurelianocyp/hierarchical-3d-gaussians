@@ -65,9 +65,14 @@ To enable depth loss, download the model weights of one of these methods:
 ### Compiling hierarchy generator and merger
 ```
 cd submodules/gaussianhierarchy
-cmake . -B build -DCMAKE_BUILD_TYPE=Release
+cmake . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_COMPILER=/usr/local/cuda-11.8/bin/nvcc
 cmake --build build -j --config Release
 cd ../..
+```
+原始的cmakelist可能会报错，需要字在project行前添加
+```
+set(CMAKE_CXX_COMPILER "g++")
+set(CMAKE_CUDA_ARCHITECTURES "native")
 ```
 ### Compiling the real-time viewer 
 For Ubuntu 22.04, install dependencies:
