@@ -79,7 +79,7 @@ set(CMAKE_CUDA_ARCHITECTURES "native")
 ### Compiling the real-time viewer 
 For Ubuntu 22.04, install dependencies:
 ```
-sudo apt install -y cmake libglew-dev libassimp-dev libboost-all-dev libgtk-3-dev libopencv-dev libglfw3-dev libavdevice-dev libavcodec-dev libeigen3-dev libxxf86vm-dev libembree-dev
+sudo apt install cmake libglew-dev libassimp-dev libboost-all-dev libgtk-3-dev libopencv-dev libglfw3-dev libavdevice-dev libavcodec-dev libeigen3-dev libxxf86vm-dev libembree-dev
 ```
 Clone the hierarchy viewer and build:
 ```
