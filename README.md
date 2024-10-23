@@ -1,29 +1,4 @@
-# A Hierarchical 3D Gaussian Representation for Real-Time Rendering of Very Large Datasets
 
-[Bernhard Kerbl](https://scholar.google.at/citations?user=jeasMB0AAAAJ&hl=en)\*, [Andreas Meuleman](https://ameuleman.github.io/)\*, [Georgios Kopanas](https://grgkopanas.github.io/), [Michael Wimmer](https://scholar.google.at/citations?user=DIwQC78AAAAJ&hl=en), [Alexandre Lanvin](https://scholar.google.com/citations?hl=fr&user=e1s7mGsAAAAJ), [George Drettakis](http://www-sop.inria.fr/members/George.Drettakis/) (* indicates equal contribution)
-
-### [Project page](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/) | [Paper](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/hierarchical-3d-gaussians_low.pdf) 
-
-This repository contains the official authors' implementation associated with the paper "A Hierarchical 3D Gaussian Representation for Real-Time Rendering of Very Large Datasets". We explain the different steps required to run our algorithm. We use a ["toy example"](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/example_dataset.zip) of 1500 images organized in 2 chunks to illustrate each step of the method and facilitate reproduction. The full datasets presented in the paper will be released as soon as the data protection process is completed (please stay tuned).
-
-<a href="https://www.inria.fr/"><img height="100" src="assets/logo_inria.png"> </a>
-<a href="https://univ-cotedazur.eu/"><img height="100" src="assets/logo_uca.png"> </a>
-<a href="https://www.cg.tuwien.ac.at/"> <img width="100;" src="assets/logo_tuwien.svg"></a>
-<a href="https://team.inria.fr/graphdeco/"> <img width="700;" src="assets/logo_graphdeco.png"></a>
-
-Bibliography:
-```
-@Article{hierarchicalgaussians24,
-      author       = {Kerbl, Bernhard and Meuleman, Andreas and Kopanas, Georgios and Wimmer, Michael and Lanvin, Alexandre and Drettakis, George},
-      title        = {A Hierarchical 3D Gaussian Representation for Real-Time Rendering of Very Large Datasets},
-      journal      = {ACM Transactions on Graphics},
-      number       = {4},
-      volume       = {43},
-      month        = {July},
-      year         = {2024},
-      url          = {https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/}
-}
-```
 
 ## Roadmap
 Please note that the code release is currently in alpha. We intend to provide fixes for issues that are experienced by users, due to difficulties with setups and/or environments that we did not test on. The below steps were successfully tested on Windows and Ubuntu 22. We appreciate the documentation of issues by users and will try to address them. Furthermore, there are several points that we will integrate in the coming weeks:
@@ -69,7 +44,7 @@ cmake . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_COMPILER=/usr/local/cud
 cmake --build build -j --config Release
 cd ../..
 ```
-这里的cmake好像是分两步，第一步配置，第二步构建。和之前的cmake ..不同。
+这里的cmake好像是分两步，第一步配置，第二步构建。和之前的cmake ..不同。 CMAKE_CUDA_COMPILER视机器cuda版本而定。cuda版本可以通过nvcc -V查看。cuda位置可以通过whereis nvcc查看
 
 原始的cmakelist可能会报错，需要字在project行前添加
 ```
@@ -79,13 +54,19 @@ set(CMAKE_CUDA_ARCHITECTURES "native")
 ### Compiling the real-time viewer 
 For Ubuntu 22.04, install dependencies:
 ```
-sudo apt install cmake libglew-dev libassimp-dev libboost-all-dev libgtk-3-dev libopencv-dev libglfw3-dev libavdevice-dev libavcodec-dev libeigen3-dev libxxf86vm-dev libembree-dev
+sudo apt install cmake libglew-dev libassimp-dev libboost-all-dev libgtk-3-dev  libglfw3-dev libavdevice-dev libavcodec-dev libeigen3-dev libxxf86vm-dev libembree-dev
 ```
+自行源码安装opencv4.5
+
+sudo apt install git
+
+克隆完下面的库后需要在SIBR_viewers/extlibs/CudaDiffRasterizer/CudaDiffRasterizer中的CMakeLists.txt的14行project CUDA前添加set(CMAKE_CUDA_ARCHITECTURES "native")
+
 Clone the hierarchy viewer and build:
 ```
 cd SIBR_viewers
 git clone https://github.com/graphdeco-inria/hierarchy-viewer.git src/projects/hierarchyviewer
-cmake . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_IBR_HIERARCHYVIEWER=ON -DBUILD_IBR_ULR=OFF -DBUILD_IBR_DATASET_TOOLS=OFF -DBUILD_IBR_GAUSSIANVIEWER=OFF 
+cmake . -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_IBR_HIERARCHYVIEWER=ON -DBUILD_IBR_ULR=OFF -DBUILD_IBR_DATASET_TOOLS=OFF -DBUILD_IBR_GAUSSIANVIEWER=OFF  -DCMAKE_CUDA_COMPILER=/usr/local/cuda-11.8/bin/nvcc
 cmake --build build -j --target install --config Release
 ```
 
