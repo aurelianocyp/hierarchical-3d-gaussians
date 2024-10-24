@@ -135,7 +135,7 @@ python preprocess/generate_depth.py --project_dir ${DATASET_DIR}
 ### Project structure
 Now you should have the following file structure, it is required for the training part: 
 ```
-
+# 虽然在上层目录会出现data文件夹，但是这个目录是在数据集文件夹下的
 project
 └── camera_calibration
     ├── aligned
