@@ -101,6 +101,7 @@ As in [3dgs](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) we need 
 
 23735 is not a valid TiffByteOrder：https://github.com/graphdeco-inria/hierarchical-3d-gaussians/issues/2
 
+报错重试的时候可以把camera_calibration文件夹删掉
 
 The first step is to generate a "global colmap". The following command uses COLMAP's hierarchical mapper, rectify images and masks, and align and scale the sparse reconstruction to facilitate subdivision.
 ```
