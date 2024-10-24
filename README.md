@@ -99,6 +99,9 @@ As in [3dgs](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) we need 
 
 ### 1.1 Calibrating the cameras
 
+23735 is not a valid TiffByteOrder：https://github.com/graphdeco-inria/hierarchical-3d-gaussians/issues/2
+
+
 The first step is to generate a "global colmap". The following command uses COLMAP's hierarchical mapper, rectify images and masks, and align and scale the sparse reconstruction to facilitate subdivision.
 ```
 python preprocess/generate_colmap.py --project_dir ${DATASET_DIR}
@@ -246,7 +249,7 @@ SIBR_viewers/install/bin/SIBR_gaussianHierarchyViewer_app --path ${DATASET_DIR}/
 ---
 
 
-# Details on the different steps
+# Details on the different steps 上面三个步骤的具体细节，下面的命令是上面命令的分解
 
 ## Generating colmap
 > note that in our experiments we used [colmap 3.9.1 with cuda support](https://github.com/colmap/colmap/releases/tag/3.9.1)<br>
