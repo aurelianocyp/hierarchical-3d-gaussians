@@ -68,7 +68,9 @@ cmake --build build -j --target install --config Release
 
 ## Running the method
 
-Our method has two main stages: Reconstruction, that takes a (usually large) set of images as input and outputs a "merged hierarchy", and [Runtime](#3-real-time-viewer), that displays the full hierarchy in real-time. 
+Our method has two main stages: 
+* Reconstruction, that takes a (usually large) set of images as input and outputs a "merged hierarchy"
+* [Runtime](#3-real-time-viewer), that displays the full hierarchy in real-time. 
 
 Reconstruction has two main steps: 1) **[Preprocessing](#1-preprocessing)** the input images and 2) **[Optimization](#2-optimization)**. We present these in detail next. For each step we have automatic scripts that perform all the required steps, and we also provide details about the individual components.
 
@@ -125,6 +127,7 @@ python preprocess/generate_chunks.py --project_dir ${DATASET_DIR}
 > note that by using `--use_slurm` you can refine the chunks in parallel, remember to set your [slurm parameters](#slurm-parameters) in `preprocess/prepare_chunks.slurm` (gpu, account, etc ...).
 
 ### 1.3 Generate monocular depth maps
+这一步会试图在hierarchical目录下的 ../../example_data创建文件，所以建议把hierarchical放在更深两层文件夹去防止权限不允许。
 In order to use depth regularization when training each chunks, depth maps must be generated for each rectified image. Then, depth scaling parameters needs to be computed as well, these two steps can be done using:
 ```
 python preprocess/generate_depth.py --project_dir ${DATASET_DIR}
