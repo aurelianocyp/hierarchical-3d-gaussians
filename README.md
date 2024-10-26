@@ -545,7 +545,7 @@ pass2_0087.png
 ```
 很随机的选取的，上至一千四百多，下至0036。他的images文件夹有1500个。并没有分cam。
 
-300张图片的话创建个10个的test就差不多了？放在east_gate/camera_calibration/aligned/sparse/0/test.txt
+300张图片的话创建个10个的test就差不多了？放在east_gate/camera_calibration/aligned/sparse/0/test.txt。我也不知道为什么small city是png明明png会TiffByteOrder
 
 ### Single chunk
 The single chunks we used for evaluation: 
