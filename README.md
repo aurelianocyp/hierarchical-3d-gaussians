@@ -547,6 +547,8 @@ pass2_0087.png
 
 300张图片的话创建个10个的test就差不多了？放在east_gate/camera_calibration/aligned/sparse/0/test.txt。我也不知道为什么small city是png明明png会TiffByteOrder
 
+cnm训了一小时发现east_gate/camera_calibration/chunks/0_1/sparse/0/test.txt也需要
+
 ### Single chunk  不用使用single chunk即使只有一个cam
 The single chunks we used for evaluation: 
 * [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/standalone_chunks/small_city.zip) 
