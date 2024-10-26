@@ -533,7 +533,7 @@ The beginning of each `.slurm` script must have the following parameters:
 ``` 
 Note that the slurm scripts have not been thouroughly tested.
 
-# Evaluations
+# Evaluations 评价指标
 We use a test.txt file that is read by the dataloader and splits into train/test sets when `--eval` is passed to the training scripts. This file should be present in `sprase/0/` for each chunk and for the aligned "global colmap" (if applicable).
 
 他的test.txt在他的处理好的small city里面有。大概就是30行的数据。每一行都类似于：
@@ -547,7 +547,7 @@ pass2_0087.png
 
 300张图片的话创建个10个的test就差不多了？放在east_gate/camera_calibration/aligned/sparse/0/test.txt。我也不知道为什么small city是png明明png会TiffByteOrder
 
-### Single chunk
+### Single chunk  不用使用single chunk即使只有一个cam
 The single chunks we used for evaluation: 
 * [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/standalone_chunks/small_city.zip) 
 
@@ -563,7 +563,7 @@ python train_post.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} --hierarchy ${OU
 python render_hierarchy.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} --hierarchy ${OUTPUT_DIR}/hierarchy.hier_opt --out_dir ${OUTPUT_DIR} --eval
 ```
 
-### Large scenes
+### Large scenes 运行full train然后render hierarchy就完事了
 Ensure that the test.txt is present in all `sparse/0/` folders. `preprocess/copy_file_to_chunks.py` can help copying it to each chunk.
 Then, the scene can be optimized with `eval`:
 ```
