@@ -99,7 +99,7 @@ As in [3dgs](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) we need 
 
 ### 1.1 Calibrating the cameras
 
-23735 is not a valid TiffByteOrder：https://github.com/graphdeco-inria/hierarchical-3d-gaussians/issues/2。这应该是通过强行改后缀名png为jpg造成的问题。数据格式并没有发生改变
+23735 is not a valid TiffByteOrder：https://github.com/graphdeco-inria/hierarchical-3d-gaussians/issues/2 。这应该是通过强行改后缀名png为jpg造成的问题。数据格式并没有发生改变
 
 报错重试的时候可以把camera_calibration文件夹删掉
 
