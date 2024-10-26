@@ -536,6 +536,15 @@ Note that the slurm scripts have not been thouroughly tested.
 # Evaluations
 We use a test.txt file that is read by the dataloader and splits into train/test sets when `--eval` is passed to the training scripts. This file should be present in `sprase/0/` for each chunk and for the aligned "global colmap" (if applicable).
 
+他的test.txt在他的处理好的small city里面有。大概就是30行的数据。每一行都类似于：
+```
+pass1_0213.png
+pass1_0743.png
+pass2_0087.png
+...
+```
+很随机的选取的，上至一千四百多，下至0036。他的images文件夹有1500个。并没有分cam。
+
 ### Single chunk
 The single chunks we used for evaluation: 
 * [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/standalone_chunks/small_city.zip) 
