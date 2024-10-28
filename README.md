@@ -585,6 +585,7 @@ render_hierarchy有些许问题。会导致test.txt即使写的没问题（cam1/
 scene/dataset——readers里的cameras_extrinsic_file与cameras_intrinsic_file的路径都由 "sparse/0"改为 "camera_calibration/aligned/sparse/0"
 以上该路径的方式与下面方式二选一执行（选择改路径的话还会有一堆需要改可能）：
 将camera calibbration里的aligned文件夹复制到east gate文件夹下
+把images文件夹复制到east gate中去
 
 
 The following renders the test set from the optimized hierarchy. Note that the current implementation loads the full hierarchy in GPU memory.
