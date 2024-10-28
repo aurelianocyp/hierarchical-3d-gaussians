@@ -582,6 +582,9 @@ python scripts/full_train.py --project_dir ${DATASET_DIR} --extra_training_args 
 render_hierarchy有些许问题。会导致test.txt即使写的没问题（cam1/xxx.jpg）也会报0test images，而同样的txt在full train时可以6test images。可以关注下scene/dataset_readers.py里的readColmapCameras
 
 把scene/init里的if os.path.exists(os.path.join(args.source_path, "sparse"))改为if os.path.exists(os.path.join(args.source_path, "camera_calibration/aligned/sparse"))
+scene/dataset——readers里的cameras_extrinsic_file与cameras_intrinsic_file的路径都由 "sparse/0"改为 "camera_calibration/aligned/sparse/0"
+以上该路径的方式与下面方式二选一执行（选择改路径的话还会有一堆需要改可能）：
+将camera calibbration里的aligned文件夹复制到east gate文件夹下
 
 
 The following renders the test set from the optimized hierarchy. Note that the current implementation loads the full hierarchy in GPU memory.
