@@ -579,6 +579,8 @@ python scripts/full_train.py --project_dir ${DATASET_DIR} --extra_training_args 
 
 如果报 assert False, "Could not recognize scene type!"，可以去相关程序上看看是找不到哪个文件，大概率是目录设置问题
 
+render_hierarchy有些许问题。会导致test.txt即使写的没问题（cam1/xxx.jpg）也会报0test images，而同样的txt在full train时可以6test images。可以关注下scene/dataset_readers.py里的readColmapCameras
+
 
 The following renders the test set from the optimized hierarchy. Note that the current implementation loads the full hierarchy in GPU memory.
 ```
