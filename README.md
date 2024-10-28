@@ -575,8 +575,14 @@ DATASET_DIR=<Path to your dataset>
 python scripts/full_train.py --project_dir ${DATASET_DIR} --extra_training_args '--exposure_lr_init 0.0 --eval'
 ```
 
+如果报 assert False, "Could not recognize scene type!"，可以去相关程序上看看是找不到哪个文件，大概率是目录设置问题
+
+
 The following renders the test set from the optimized hierarchy. Note that the current implementation loads the full hierarchy in GPU memory.
 ```
+DATASET_DIR= DATASET_DIR=data/data2/east_gate/camera_calibration/aligned
+ model_path = data/data2/east_gate/output/scaffold/
+
 python render_hierarchy.py -s ${DATASET_DIR} --model_path ${DATASET_DIR}/output --hierarchy ${DATASET_DIR}/output/merged.hier --out_dir ${DATASET_DIR}/output/renders --eval --scaffold_file ${DATASET_DIR}/output/scaffold/point_cloud/iteration_30000
 ```
 
