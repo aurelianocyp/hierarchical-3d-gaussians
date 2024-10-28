@@ -580,7 +580,7 @@ python scripts/full_train.py --project_dir ${DATASET_DIR} --extra_training_args 
 
 The following renders the test set from the optimized hierarchy. Note that the current implementation loads the full hierarchy in GPU memory.
 ```
-DATASET_DIR=DATASET_DIR=data/data2/east_gate/camera_calibration/aligned
+DATASET_DIR=data/data2/east_gate/camera_calibration/aligned
  model_path=data/data2/east_gate/output/scaffold/
 hierarchy_dir=data/data2/east_gate
 
