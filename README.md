@@ -569,6 +569,7 @@ python render_hierarchy.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} --hierarch
 Ensure that the test.txt is present in all `sparse/0/` folders. `preprocess/copy_file_to_chunks.py` can help copying it to each chunk.
 Then, the scene can be optimized with `eval`:
 ```
+DATASET_DIR=<Path to your dataset>
 python scripts/full_train.py --project_dir ${DATASET_DIR} --extra_training_args '--exposure_lr_init 0.0 --eval'
 ```
 
