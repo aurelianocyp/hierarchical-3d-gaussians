@@ -584,7 +584,7 @@ DATASET_DIR=DATASET_DIR=data/data2/east_gate/camera_calibration/aligned
  model_path=data/data2/east_gate/output/scaffold/
 hierarchy_dir=data/data2/east_gate
 
-python render_hierarchy.py -s ${DATASET_DIR} --model_path ${model_path} --hierarchy ${hierarchy_dir}/output/merged.hier --out_dir ${DATASET_DIR}/output/renders --eval --scaffold_file ${DATASET_DIR}/output/scaffold/point_cloud/iteration_30000
+python render_hierarchy.py -s ${DATASET_DIR} --model_path ${model_path} --hierarchy ${hierarchy_dir}/output/merged.hier --out_dir ${DATASET_DIR}/output/renders --eval --scaffold_file ${hierarchy_dir}/output/scaffold/point_cloud/iteration_30000
 ```
 
 ### Exposure optimization
