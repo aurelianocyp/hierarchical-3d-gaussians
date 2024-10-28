@@ -549,7 +549,9 @@ pass2_0087.png
 
 cnm训了一小时发现east_gate/camera_calibration/chunks/0_1/sparse/0/test.txt也需要
 
-### Single chunk  不用使用single chunk即使只有一个cam
+east_gate/camera_calibration/chunks/1_0/sparse/0/test.txt也许也需要
+
+### Single chunk  不用使用single chunk即使只有一个cam使用large scenes
 The single chunks we used for evaluation: 
 * [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/standalone_chunks/small_city.zip) 
 
