@@ -79,22 +79,16 @@ To get started, prepare a dataset or download and extract the [toy example](http
 The dataset should have sorted images in a folder per camera in `${DATASET_DIR}/inputs/images/` and optional masks (with `.png` extension) in `${DATASET_DIR}/inputs/masks/`. Masks will be multiplied to the input images and renderings before computing loss. 
 
 toy example结构：
+```
 example_dataset
     └─inputs
         ├─images
         │  ├─cam1（含很多jpg文件夹）
-        │  ├─cam2
-        │  ├─cam3
-        │  ├─cam4
-        │  ├─cam5
-        │  └─cam6
+        │  ├─n个cam文件夹
         └─masks（optional）
             ├─cam1
-            ├─cam2
-            ├─cam3
-            ├─cam4
-            ├─cam5
-            └─cam6
+            ├─n个cam文件夹
+```
 
 You can also work from our full scenes. As we provide them calibrated and subdivided, you may skip to [Generate monocular depth maps](#13-generate-monocular-depth-maps). The datasets:
 * [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/full_scenes/small_city.zip)
@@ -117,7 +111,7 @@ ${DATASET_DIR} = "<Path to your dataset>"
 As in [3dgs](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) we need calibrated cameras and a point cloud to train our hierarchies on.
 
 ### 1.1 Calibrating the cameras
-数据集放置：只需要
+数据集放置：只需要像上面列的toy example（example_dataset）那样放置即可，也就是把jpg图片放在cam1中就可以开始直接运行程序了，但是最好这样放：hierarchial-3d_guassians/data/data2/toy_example/inputs
 
 23735 is not a valid TiffByteOrder：https://github.com/graphdeco-inria/hierarchical-3d-gaussians/issues/2 。这应该是通过强行改后缀名png为jpg造成的问题。数据格式并没有发生改变
 
