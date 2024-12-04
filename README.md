@@ -123,7 +123,7 @@ As in [3dgs](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) we need 
 
 The first step is to generate a "global colmap". The following command uses COLMAP's hierarchical mapper, rectify images and masks, and align and scale the sparse reconstruction to facilitate subdivision.
 ```
-python preprocess/generate_colmap.py --project_dir ${DATASET_DIR}
+python preprocess/generate_colmap.py --project_dir ${DATASET_DIR} --colmap_dir  ${DATASET_DIR}
 ```
 
 <details>
