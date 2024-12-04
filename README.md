@@ -188,6 +188,8 @@ project
 ```
 ## 2. Optimization
 
+如果后面还需要跑评价指标不要使用这一步里面的full train，使用后面评价指标那里的full train
+
 *The scene training process is divided into five steps; 1) we first train a global, coarse 3D Gaussian splatting scene ("the scaffold"), then 2) train each chunk independently in parallel, 3) build the hierarchy, 4) optimize the hierarchy in each chunk and finally 5) consolidate the chunks to create the final hierarchy*.
 
 Make sure that you correctly [set up your environment](#setup) and [built the hierarchy merger/creator](#compiling-hierarchy-generator-and-merger)
