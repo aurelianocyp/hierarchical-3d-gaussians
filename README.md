@@ -157,7 +157,9 @@ python preprocess/generate_depth.py --project_dir ${DATASET_DIR}
 ### Project structure
 Now you should have the following file structure, it is required for the training part: 
 ```
-# 虽然在上层目录会出现data文件夹，但是这个目录是在数据集文件夹下的
+# 在上层目录（与hierarchical同层次的）会出现data文件夹（虽然该文件夹内全是文件夹没有任何文件）
+# 这个project目录指的是hierarchical/data/data2/数据集文件夹
+# 没有ply文件是正常的，不要觉得第二步full train报错时这里没有ply文件就有问题
 project
 └── camera_calibration
     ├── aligned
@@ -191,8 +193,10 @@ project
 Make sure that you correctly [set up your environment](#setup) and [built the hierarchy merger/creator](#compiling-hierarchy-generator-and-merger)
 
 The `full_train.py` script performs all these steps to train a hierarchy from a preprocessed scene. While training, the progress can be visualized with the original 3DGS remote viewer ([build instructions](#compiling-the-real-time-viewer)).
+
+可能报Could not recognize scene type!。应该是报错缺少文件。但是应该不是缺少文件，只是程序的路径写的有点问题。
 ```
-python scripts/full_train.py --project_dir ${DATASET_DIR} --colmap_dir  ${DATASET_DIR}
+python scripts/full_train.py --project_dir ${DATASET_DIR} 
 ```
 <details>
 <summary><span style="font-weight: bold;">Command Line Arguments</span></summary>
