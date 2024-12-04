@@ -78,6 +78,24 @@ Reconstruction has two main steps: 1) **[Preprocessing](#1-preprocessing)** the 
 To get started, prepare a dataset or download and extract the [toy example](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/example_dataset.zip). 
 The dataset should have sorted images in a folder per camera in `${DATASET_DIR}/inputs/images/` and optional masks (with `.png` extension) in `${DATASET_DIR}/inputs/masks/`. Masks will be multiplied to the input images and renderings before computing loss. 
 
+toy example结构：
+example_dataset
+    └─inputs
+        ├─images
+        │  ├─cam1（含很多jpg文件夹）
+        │  ├─cam2
+        │  ├─cam3
+        │  ├─cam4
+        │  ├─cam5
+        │  └─cam6
+        └─masks（optional）
+            ├─cam1
+            ├─cam2
+            ├─cam3
+            ├─cam4
+            ├─cam5
+            └─cam6
+
 You can also work from our full scenes. As we provide them calibrated and subdivided, you may skip to [Generate monocular depth maps](#13-generate-monocular-depth-maps). The datasets:
 * [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/full_scenes/small_city.zip)
 
@@ -86,6 +104,7 @@ In the following, replace `${DATASET_DIR}` with the path to your dataset or set 
 ```
 # Bash:
 DATASET_DIR=<Path to your dataset>
+# 最好是在hierarchical目录下，路径就写相对路径就行，比如DATASET DIR=data/data2/zch_ISPRS/
 
 # PowerShell:
 ${DATASET_DIR} = "<Path to your dataset>"
@@ -98,6 +117,7 @@ ${DATASET_DIR} = "<Path to your dataset>"
 As in [3dgs](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) we need calibrated cameras and a point cloud to train our hierarchies on.
 
 ### 1.1 Calibrating the cameras
+数据集放置：只需要
 
 23735 is not a valid TiffByteOrder：https://github.com/graphdeco-inria/hierarchical-3d-gaussians/issues/2 。这应该是通过强行改后缀名png为jpg造成的问题。数据格式并没有发生改变
 
