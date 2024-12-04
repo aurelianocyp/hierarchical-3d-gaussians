@@ -123,7 +123,7 @@ As in [3dgs](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) we need 
 
 The first step is to generate a "global colmap". The following command uses COLMAP's hierarchical mapper, rectify images and masks, and align and scale the sparse reconstruction to facilitate subdivision.
 ```
-python preprocess/generate_colmap.py --project_dir ${DATASET_DIR} --colmap_dir  ${DATASET_DIR}
+python preprocess/generate_colmap.py --project_dir ${DATASET_DIR} 
 ```
 
 <details>
@@ -192,7 +192,7 @@ Make sure that you correctly [set up your environment](#setup) and [built the hi
 
 The `full_train.py` script performs all these steps to train a hierarchy from a preprocessed scene. While training, the progress can be visualized with the original 3DGS remote viewer ([build instructions](#compiling-the-real-time-viewer)).
 ```
-python scripts/full_train.py --project_dir ${DATASET_DIR}
+python scripts/full_train.py --project_dir ${DATASET_DIR} --colmap_dir  ${DATASET_DIR}
 ```
 <details>
 <summary><span style="font-weight: bold;">Command Line Arguments</span></summary>
