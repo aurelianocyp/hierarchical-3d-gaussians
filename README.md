@@ -194,7 +194,18 @@ Make sure that you correctly [set up your environment](#setup) and [built the hi
 
 The `full_train.py` script performs all these steps to train a hierarchy from a preprocessed scene. While training, the progress can be visualized with the original 3DGS remote viewer ([build instructions](#compiling-the-real-time-viewer)).
 
-可能报Could not recognize scene type!。应该是报错缺少文件。但是应该不是缺少文件，只是程序的路径写的有点问题。
+可能报Could not recognize scene type!。应该是报错缺少文件。但是应该不是缺少文件，只是程序的路径写的有点问题：
+* a6000/h3dgs/h3dgs2/hierarchical-3d-gaussians/scene/__init__.py里的:
+* ```python
+  #if os.path.exists(os.path.join(args.source_path, "camera_calibration/aligned/sparse")):改为
+  if os.path.exists(os.path.join(args.source_path, "sparse")):
+  ```
+* a6000/h3dgs/h3dgs2/hierarchical-3d-gaussians/scene/dataset_readers.py里：
+* ```python
+          #cameras_extrinsic_file = os.path.join(path, "camera_calibration/aligned/sparse/0", "images.bin")改为
+        #cameras_intrinsic_file = os.path.join(path, "camera_calibration/aligned/sparse/0", "cameras.bin")改为
+        cameras_extrinsic_file = os.path.join(path, "sparse/0", "images.bin")
+        cameras_intrinsic_file = os.path.join(path, "sparse/0", "cameras.bin")
 ```
 python scripts/full_train.py --project_dir ${DATASET_DIR} 
 ```
