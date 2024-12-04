@@ -111,7 +111,7 @@ ${DATASET_DIR} = "<Path to your dataset>"
 As in [3dgs](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) we need calibrated cameras and a point cloud to train our hierarchies on.
 
 ### 1.1 Calibrating the cameras
-数据集放置：只需要像上面列的toy example（example_dataset）那样放置即可，也就是把jpg图片放在cam1中就可以开始直接运行程序了，但是最好这样放：hierarchial-3d_guassians/data/data2/toy_example/inputs
+数据集放置：只需要像上面列的toy example（example_dataset）那样放置即可，也就是把jpg图片放在cam1中就可以开始直接运行程序了，但是最好这样放：hierarchical-3d-guassians/data/data2/toy_example/inputs/images/cam1
 
 23735 is not a valid TiffByteOrder：https://github.com/graphdeco-inria/hierarchical-3d-gaussians/issues/2 。这应该是通过强行改后缀名png为jpg造成的问题。数据格式并没有发生改变
 
