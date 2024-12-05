@@ -123,6 +123,7 @@ As in [3dgs](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) we need 
 
 The first step is to generate a "global colmap". The following command uses COLMAP's hierarchical mapper, rectify images and masks, and align and scale the sparse reconstruction to facilitate subdivision.
 ```
+DATASET_DIR=
 python preprocess/generate_colmap.py --project_dir ${DATASET_DIR} 
 ```
 
@@ -285,6 +286,71 @@ SIBR_viewers/install/bin/SIBR_gaussianHierarchyViewer_app --path ${DATASET_DIR}/
 <br>
 
 ---
+# Evaluations 评价指标
+We use a test.txt file that is read by the dataloader and splits into train/test sets when `--eval` is passed to the training scripts. This file should be present in `sprase/0/` for each chunk and for the aligned "global colmap" (if applicable).
+
+他的test.txt在他的处理好的small city里面有。大概就是30行的数据。每一行都类似于：
+```
+pass1_0213.png
+pass1_0743.png
+pass2_0087.png
+...
+```
+很随机的选取的，上至一千四百多，下至0036。他的images文件夹有1500个。并没有分cam。
+
+300张图片的话创建个10个的test就差不多了？放在east_gate/camera_calibration/aligned/sparse/0/test.txt。我也不知道为什么small city是png明明png会TiffByteOrder。如果自己的图片是放在cam1中那么格式最好是cam1/frame_00030.jpg
+
+cnm训了一小时发现east_gate/camera_calibration/chunks/0_1/sparse/0/test.txt也需要
+
+east_gate/camera_calibration/chunks/1_0/sparse/0/test.txt也需要
+
+应该就chunks和aligned里面的sparse 0需要了。这个需要重新训练，所以很费时间，需要上午九点到下午一两点。而且不知道为什么，好像放了300张图片只能训练209张。正常情况下不写eval参数的full train也是只读取209张。
+
+### Single chunk  不用使用single chunk即使只有一个cam使用large scenes
+The single chunks we used for evaluation: 
+* [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/standalone_chunks/small_city.zip) 
+
+To run the evaluations on a chunk:
+```
+python train_single.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} -d depths --exposure_lr_init 0.0 --eval --skip_scale_big_gauss
+
+# Windows: build/Release/GaussianHierarchyCreator 
+submodules/gaussianhierarchy/build/GaussianHierarchyCreator ${OUTPUT_DIR}/point_cloud/iteration_30000/point_cloud.ply ${CHUNK_DIR}  ${OUTPUT_DIR} 
+
+python train_post.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} --hierarchy ${OUTPUT_DIR}/hierarchy.hier --iterations 15000 --feature_lr 0.0005 --opacity_lr 0.01 --scaling_lr 0.001 --eval
+
+python render_hierarchy.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} --hierarchy ${OUTPUT_DIR}/hierarchy.hier_opt --out_dir ${OUTPUT_DIR} --eval
+```
+
+### Large scenes 运行full train然后render hierarchy就完事了
+Ensure that the test.txt is present in all `sparse/0/` folders. `preprocess/copy_file_to_chunks.py` can help copying it to each chunk.
+Then, the scene can be optimized with `eval`:
+```
+DATASET_DIR=<Path to your dataset>
+python scripts/full_train.py --project_dir ${DATASET_DIR} --extra_training_args '--exposure_lr_init 0.0 --eval'
+```
+
+如果报 assert False, "Could not recognize scene type!"，可以去相关程序上看看是找不到哪个文件，大概率是目录设置问题
+
+render_hierarchy有些许问题。会导致test.txt即使写的没问题（cam1/xxx.jpg）也会报0test images，而同样的txt在full train时可以6test images。可以关注下scene/dataset_readers.py里的readColmapCameras
+
+把scene/init里的if os.path.exists(os.path.join(args.source_path, "sparse"))改为if os.path.exists(os.path.join(args.source_path, "camera_calibration/aligned/sparse"))
+scene/dataset——readers里的cameras_extrinsic_file与cameras_intrinsic_file的路径都由 "sparse/0"改为 "camera_calibration/aligned/sparse/0"
+以上该路径的方式与下面方式二选一执行（选择改路径的话还会有一堆需要改可能）：
+将camera calibbration里的aligned文件夹复制到east gate文件夹下
+把images文件夹复制到east gate中去
+
+
+The following renders the test set from the optimized hierarchy. Note that the current implementation loads the full hierarchy in GPU memory.
+```
+DATASET_DIR=data/data2/east_gate/
+ model_path=data/data2/east_gate/output/scaffold/
+
+python render_hierarchy.py -s ${DATASET_DIR}/camera_calibration/aligned --model_path ${model_path} --hierarchy ${DATASET_DIR}/output/merged.hier --out_dir ${DATASET_DIR}/output/renders --eval --scaffold_file ${DATASET_DIR}/output/scaffold/point_cloud/iteration_30000
+```
+
+### Exposure optimization
+We generally disable exposure optimization for evaluations. If you want to use it, you can optimize exposure on the left half of the test image and evaluate on their right half. To achieve this, remove `--exposure_lr_init 0.0` from the commands above and add `--train_test_exp` to all training scripts.
 
 
 # Details on the different steps 上面三个步骤的具体细节，下面的命令是上面命令的分解
@@ -566,68 +632,3 @@ The beginning of each `.slurm` script must have the following parameters:
 ``` 
 Note that the slurm scripts have not been thouroughly tested.
 
-# Evaluations 评价指标
-We use a test.txt file that is read by the dataloader and splits into train/test sets when `--eval` is passed to the training scripts. This file should be present in `sprase/0/` for each chunk and for the aligned "global colmap" (if applicable).
-
-他的test.txt在他的处理好的small city里面有。大概就是30行的数据。每一行都类似于：
-```
-pass1_0213.png
-pass1_0743.png
-pass2_0087.png
-...
-```
-很随机的选取的，上至一千四百多，下至0036。他的images文件夹有1500个。并没有分cam。
-
-300张图片的话创建个10个的test就差不多了？放在east_gate/camera_calibration/aligned/sparse/0/test.txt。我也不知道为什么small city是png明明png会TiffByteOrder。如果自己的图片是放在cam1中那么格式最好是cam1/frame_00030.jpg
-
-cnm训了一小时发现east_gate/camera_calibration/chunks/0_1/sparse/0/test.txt也需要
-
-east_gate/camera_calibration/chunks/1_0/sparse/0/test.txt也需要
-
-应该就chunks和aligned里面的sparse 0需要了。这个需要重新训练，所以很费时间，需要上午九点到下午一两点。而且不知道为什么，好像放了300张图片只能训练209张。正常情况下不写eval参数的full train也是只读取209张。
-
-### Single chunk  不用使用single chunk即使只有一个cam使用large scenes
-The single chunks we used for evaluation: 
-* [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/standalone_chunks/small_city.zip) 
-
-To run the evaluations on a chunk:
-```
-python train_single.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} -d depths --exposure_lr_init 0.0 --eval --skip_scale_big_gauss
-
-# Windows: build/Release/GaussianHierarchyCreator 
-submodules/gaussianhierarchy/build/GaussianHierarchyCreator ${OUTPUT_DIR}/point_cloud/iteration_30000/point_cloud.ply ${CHUNK_DIR}  ${OUTPUT_DIR} 
-
-python train_post.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} --hierarchy ${OUTPUT_DIR}/hierarchy.hier --iterations 15000 --feature_lr 0.0005 --opacity_lr 0.01 --scaling_lr 0.001 --eval
-
-python render_hierarchy.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} --hierarchy ${OUTPUT_DIR}/hierarchy.hier_opt --out_dir ${OUTPUT_DIR} --eval
-```
-
-### Large scenes 运行full train然后render hierarchy就完事了
-Ensure that the test.txt is present in all `sparse/0/` folders. `preprocess/copy_file_to_chunks.py` can help copying it to each chunk.
-Then, the scene can be optimized with `eval`:
-```
-DATASET_DIR=<Path to your dataset>
-python scripts/full_train.py --project_dir ${DATASET_DIR} --extra_training_args '--exposure_lr_init 0.0 --eval'
-```
-
-如果报 assert False, "Could not recognize scene type!"，可以去相关程序上看看是找不到哪个文件，大概率是目录设置问题
-
-render_hierarchy有些许问题。会导致test.txt即使写的没问题（cam1/xxx.jpg）也会报0test images，而同样的txt在full train时可以6test images。可以关注下scene/dataset_readers.py里的readColmapCameras
-
-把scene/init里的if os.path.exists(os.path.join(args.source_path, "sparse"))改为if os.path.exists(os.path.join(args.source_path, "camera_calibration/aligned/sparse"))
-scene/dataset——readers里的cameras_extrinsic_file与cameras_intrinsic_file的路径都由 "sparse/0"改为 "camera_calibration/aligned/sparse/0"
-以上该路径的方式与下面方式二选一执行（选择改路径的话还会有一堆需要改可能）：
-将camera calibbration里的aligned文件夹复制到east gate文件夹下
-把images文件夹复制到east gate中去
-
-
-The following renders the test set from the optimized hierarchy. Note that the current implementation loads the full hierarchy in GPU memory.
-```
-DATASET_DIR=data/data2/east_gate/
- model_path=data/data2/east_gate/output/scaffold/
-
-python render_hierarchy.py -s ${DATASET_DIR}/camera_calibration/aligned --model_path ${model_path} --hierarchy ${DATASET_DIR}/output/merged.hier --out_dir ${DATASET_DIR}/output/renders --eval --scaffold_file ${DATASET_DIR}/output/scaffold/point_cloud/iteration_30000
-```
-
-### Exposure optimization
-We generally disable exposure optimization for evaluations. If you want to use it, you can optimize exposure on the left half of the test image and evaluate on their right half. To achieve this, remove `--exposure_lr_init 0.0` from the commands above and add `--train_test_exp` to all training scripts.
