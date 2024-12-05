@@ -196,6 +196,7 @@ Now you should have the following file structure, it is required for the trainin
 # 在上层目录（与hierarchical同层次的）会出现data文件夹（虽然该文件夹内全是文件夹没有任何文件）
 # 这个project目录指的是hierarchical/data/data2/数据集文件夹
 # 没有ply文件是正常的，不要觉得第二步full train报错时这里没有ply文件就有问题
+# 就只会多一个camera_calibration文件夹，不会多sparse文件夹，这个文件夹应该是存模型的
 project
 └── camera_calibration
     ├── aligned
