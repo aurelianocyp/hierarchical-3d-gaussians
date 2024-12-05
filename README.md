@@ -150,10 +150,6 @@ python preprocess/generate_colmap.py --project_dir ${DATASET_DIR}
 │           ├── 0
 │           │   └── masks
 │           ├── 1
-│           ├── 2
-│           ├── 3
-│           ├── 4
-│           └── 5
 └── inputs
     ├── images
     │   ├── cam1
@@ -179,6 +175,8 @@ python preprocess/auto_reorient.py --input_path ${DATASET_DIR}/camera_calibratio
 
 ### 1.2 Generate chunks
 Once the "global colmap" generated, it should be split into chunks. We also run a per-chunk bundle adjustment as COLMAP's hierarchical mapper is faster but less accurate (if your global colmap is accurate, you can skip this time consuming step with `--skip_bundle_adjustment`). 
+
+如果这一步报没有raw trunk，那也不是上一步的问题，上一步本来就不该生成raw chunk，应该是这一步的程序某一下执行出了问题导致没有生成raw chunk
 
 ```
 python preprocess/generate_chunks.py --project_dir ${DATASET_DIR}
