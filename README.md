@@ -580,7 +580,7 @@ pass2_0087.png
 
 cnm训了一小时发现east_gate/camera_calibration/chunks/0_1/sparse/0/test.txt也需要
 
-east_gate/camera_calibration/chunks/1_0/sparse/0/test.txt也许也需要
+east_gate/camera_calibration/chunks/1_0/sparse/0/test.txt也需要
 
 应该就chunks和aligned里面的sparse 0需要了。这个需要重新训练，所以很费时间，需要上午九点到下午一两点。而且不知道为什么，好像放了300张图片只能训练209张。正常情况下不写eval参数的full train也是只读取209张。
 
