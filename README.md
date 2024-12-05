@@ -126,6 +126,41 @@ The first step is to generate a "global colmap". The following command uses COLM
 DATASET_DIR=
 python preprocess/generate_colmap.py --project_dir ${DATASET_DIR} 
 ```
+运行完毕之后的数据集：
+```
+├── camera_calibration
+│   ├── aligned
+│   │   └── sparse
+│   │       └── 0
+│   ├── rectified
+│   │   ├── images
+│   │   │   ├── cam1
+│   │   ├── masks
+│   │   │   ├── cam1
+│   │   ├── sparse
+│   │   └── stereo
+│   │       ├── consistency_graphs
+│   │       │   ├── cam1
+│   │       ├── depth_maps
+│   │       │   ├── cam1
+│   │       └── normal_maps
+│   │           ├── cam1
+│   └── unrectified
+│       └── sparse
+│           ├── 0
+│           │   └── masks
+│           ├── 1
+│           ├── 2
+│           ├── 3
+│           ├── 4
+│           └── 5
+└── inputs
+    ├── images
+    │   ├── cam1
+    └── masks
+        ├── cam1
+
+```
 
 不是说可以colmap就可以generate colmap，generate colmap里面其实包含colmap和auto reorient（下面能看见）。有可能无法auto reorient，报错是：scipy.spatial._qhull.QhullError: QH6214 qhull input error: not enough points(2) to construct initial simplex (need 4)
 
