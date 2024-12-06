@@ -373,7 +373,7 @@ scene/dataset——readers里的cameras_extrinsic_file与cameras_intrinsic_file�
 
 以上该路径的方式与下面方式二选一执行（选择改路径的话还会有一堆需要改可能）：
 
-将camera calibbration里的aligned文件夹复制到east gate文件夹下。把images文件夹复制到east gate中去。把images文件夹复制到camera calibbration里的aligned文件夹中去。
+把images文件夹复制到camera calibbration里的aligned文件夹中去。
 
 
 
