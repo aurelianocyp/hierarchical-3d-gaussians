@@ -668,6 +668,7 @@ The beginning of each `.slurm` script must have the following parameters:
 ``` 
 Note that the slurm scripts have not been thouroughly tested.
 </details>
+<br>
 # note
 * 处理matrixcity（NYC数据集）：自行创建camera_calibration里的aligned/sparse/0文件夹和rectified/sparse文件夹，将处理好的cameras.bin，images.bin，points3D.bin放到这两个文件夹中，在rectified中创建images/eval和images/train，分别放置相应图片。然后运行1.1的auto reorient，1.2，1.3。改代码时的主要突破口在https://github.com/jianglh-WHU/hierarchical-3d-gaussians ，主要是看scene/init里的elif args.data format == 'matrixcity':那里，以这个为突破口，哪里报错改哪里，可以参考那个人是怎么改的。
 
