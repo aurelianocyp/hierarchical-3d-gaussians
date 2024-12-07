@@ -375,7 +375,7 @@ scene/dataset——readers里的cameras_extrinsic_file与cameras_intrinsic_file�
 
 把images文件夹复制到camera calibbration里的aligned文件夹中去。
 
-
+评估结果不会保存，建议截图
 
 The following renders the test set from the optimized hierarchy. Note that the current implementation loads the full hierarchy in GPU memory.
 ```
@@ -388,7 +388,7 @@ python render_hierarchy.py -s ${DATASET_DIR}/camera_calibration/aligned --model_
 ### Exposure optimization
 We generally disable exposure optimization for evaluations. If you want to use it, you can optimize exposure on the left half of the test image and evaluate on their right half. To achieve this, remove `--exposure_lr_init 0.0` from the commands above and add `--train_test_exp` to all training scripts.
 
-
+<details>
 # Details on the different steps 上面三个步骤的具体细节，下面的命令是上面命令的分解
 
 ## Generating colmap
@@ -667,7 +667,7 @@ The beginning of each `.slurm` script must have the following parameters:
 #SBATCH --time=01:00:00         # maximal allocation time
 ``` 
 Note that the slurm scripts have not been thouroughly tested.
-
+</details>
 # note
 * 处理matrixcity（NYC数据集）：自行创建camera_calibration里的aligned/sparse/0文件夹和rectified/sparse文件夹，将处理好的cameras.bin，images.bin，points3D.bin放到这两个文件夹中，在rectified中创建images/eval和images/train，分别放置相应图片。然后运行1.1的auto reorient，1.2，1.3。改代码时的主要突破口在https://github.com/jianglh-WHU/hierarchical-3d-gaussians ，主要是看scene/init里的elif args.data format == 'matrixcity':那里，以这个为突破口，哪里报错改哪里，可以参考那个人是怎么改的。
 
