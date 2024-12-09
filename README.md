@@ -344,8 +344,13 @@ east_gate/camera_calibration/chunks/1_0/sparse/0/test.txt也需要
 The single chunks we used for evaluation: 
 * [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/standalone_chunks/small_city.zip) 
 
+small city就用single chunk训练和评价吧，需要把images与rectified/depths复制到chunks/0_0中
+
 To run the evaluations on a chunk:
 ```
+CHUNK_DIR=data/data2/example_dataset/camera_calibration/chunks/0_0/
+OUTPUT_DIR=small_city_output
+
 python train_single.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} -d depths --exposure_lr_init 0.0 --eval --skip_scale_big_gauss
 
 # Windows: build/Release/GaussianHierarchyCreator 
