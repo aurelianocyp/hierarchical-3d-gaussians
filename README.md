@@ -545,8 +545,12 @@ We use a test.txt file that is read by the dataloader and splits into train/test
 The single chunks we used for evaluation: 
 * [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/standalone_chunks/small_city.zip) 
 
+example dataset就是评估的单个chunk，把images文件夹复制到camera_calibration/chunks/0_0/中，将camera_calibration/rectified/depths复制到camera_calibration/chunks/0_0/中
+
 To run the evaluations on a chunk:
 ```
+CHUNK_DIR=data/data2/example_dataset/camera_calibration/chunks/0_0/
+OUTPUT_DIR=small_city_output
 python train_single.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} -d depths --exposure_lr_init 0.0 --eval --skip_scale_big_gauss
 
 # Windows: build/Release/GaussianHierarchyCreator 
