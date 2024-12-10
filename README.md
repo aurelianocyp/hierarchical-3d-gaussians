@@ -340,7 +340,7 @@ east_gate/camera_calibration/chunks/1_0/sparse/0/test.txt也需要
 
 应该就chunks和aligned里面的sparse 0需要了。这个需要重新训练，所以很费时间，需要上午九点到下午一两点。而且不知道为什么，好像放了300张图片只能训练209张。正常情况下不写eval参数的full train也是只读取209张。
 
-### Single chunk  不用使用single chunk即使只有一个cam使用large scenes
+### Single chunk  场景比较小用single chunk
 The single chunks we used for evaluation: 
 * [SmallCity](https://repo-sam.inria.fr/fungraph/hierarchical-3d-gaussians/datasets/standalone_chunks/small_city.zip) 
 
@@ -353,7 +353,6 @@ OUTPUT_DIR=small_city_output
 
 python train_single.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} -d depths --exposure_lr_init 0.0 --eval --skip_scale_big_gauss
 
-# Windows: build/Release/GaussianHierarchyCreator 
 submodules/gaussianhierarchy/build/GaussianHierarchyCreator ${OUTPUT_DIR}/point_cloud/iteration_30000/point_cloud.ply ${CHUNK_DIR}  ${OUTPUT_DIR} 
 
 python train_post.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} --hierarchy ${OUTPUT_DIR}/hierarchy.hier --iterations 15000 --feature_lr 0.0005 --opacity_lr 0.01 --scaling_lr 0.001 --eval
