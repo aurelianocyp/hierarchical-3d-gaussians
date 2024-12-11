@@ -332,6 +332,8 @@ pass2_0087.png
 ```
 很随机的选取的，上至一千四百多，下至0036。他的images文件夹有1500个。并没有分cam。
 
+如何寻找读图时的代码：在训练时基本会实例化scene对象，这个对象中读取图
+
 300张图片的话创建个10个的test就差不多了？放在east_gate/camera_calibration/aligned/sparse/0/test.txt。我也不知道为什么small city是png明明png会TiffByteOrder。如果自己的图片是放在cam1中那么格式最好是cam1/frame_00030.jpg
 
 cnm训了一小时发现east_gate/camera_calibration/chunks/0_1/sparse/0/test.txt也需要
