@@ -622,11 +622,13 @@ Make sure to have the [depth estimator weights](#weights-for-monocular-depth-est
 ## Training steps
 
 Make sure that you correctly [set up repositories and environments](#setup)
+与full train中的流程大致一致。比sing train的流程多了个 train_coarse.py。最后需要得到最终评价结果的时候回到evaluate那块看看就行。
 
 - **Coarse optimization**<br>
    To allow consistent training of all chunks, we create a basic scaffold and skybox for all ensuing steps:
     ```
     python train_coarse.py -s <path to project/aligned> -i <../rectified/images> --skybox_num 100000 --position_lr_init 0.00016 --position_lr_final 0.0000016 --model_path <path to output scaffold>
+    python train_coarse.py -s data/data2/zch_ISPRS/camera_calibration/aligned --save_iterations -1 -i ../rectified/images --skybox_num 100000 --model_path data/data2/zch_ISPRS/output/scaffold --exposure_lr_init 0.0 --eval # 来自full_train
     ```
     
 - **Single chunk training**<br>
