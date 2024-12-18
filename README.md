@@ -367,8 +367,11 @@ python train_post.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} --hierarchy ${OU
 python render_hierarchy.py -s ${CHUNK_DIR} --model_path ${OUTPUT_DIR} --hierarchy ${OUTPUT_DIR}/hierarchy.hier_opt --out_dir ${OUTPUT_DIR} --eval
 ```
 
-### Large scenes 运行full train然后render hierarchy就完事了
+### Large scenes
 Ensure that the test.txt is present in all `sparse/0/` folders. `preprocess/copy_file_to_chunks.py` can help copying it to each chunk.
+
+有些步骤很费时间，如果已经存在了就可以添加参数'--skip_if_exists', action="store_true", default=False, help="Skip training a chunk if it already has a hierarchy"
+
 Then, the scene can be optimized with `eval`:
 ```
 DATASET_DIR=<Path to your dataset>
