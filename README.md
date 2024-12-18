@@ -181,6 +181,9 @@ Once the "global colmap" generated, it should be split into chunks. We also run 
 ```
 python preprocess/generate_chunks.py --project_dir ${DATASET_DIR}
 ```
+
+这一步可能会筛除掉部分图片，要不筛除，就在preprocess/make_chunk.py命令那里增加一个参数 "--lapla_thresh", "0"
+
 *This step takes ~ 95 minutes on our example dataset using a RTX A6000, more details on each steps of the script [here](#generating-chunks).*
 > note that by using `--use_slurm` you can refine the chunks in parallel, remember to set your [slurm parameters](#slurm-parameters) in `preprocess/prepare_chunks.slurm` (gpu, account, etc ...).
 
