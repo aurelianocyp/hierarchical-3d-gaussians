@@ -692,4 +692,5 @@ Note that the slurm scripts have not been thouroughly tested.
 * 处理UC-GS的sf时：基本同上，只不过recitified中放置图片时直接在images中放置图片即可。
 * 少于100张不创建chunk：https://github.com/graphdeco-inria/hierarchical-3d-gaussians/issues/61
 * 要控制分块时，5000张图片自动会分成4个1500的块，因为块最大就是1500，但是如果指定块最少的帧为1500则直接raw chunk都不会生成
+* 直接生成depth和depth_params.json，参考Monocular depth maps中的步骤
 
