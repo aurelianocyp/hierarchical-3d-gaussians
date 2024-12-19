@@ -607,6 +607,8 @@ The last preprocessing step is to divide the colmap into chunks, each chunk will
 ## Monocular depth maps
 Make sure to have the [depth estimator weights](#weights-for-monocular-depth-estimation).
 1. #### Generate depth maps (should run for each subfolder in `images/`)
+
+   这里的图片路径需要路径内即是图片，它不会遍历图片
     * Using Depth Anything V2 (prefered):
         ```
         cd submodules/Depth-Anything-V2
@@ -618,7 +620,7 @@ Make sure to have the [depth estimator weights](#weights-for-monocular-depth-est
         python run_monodepth.py -t dpt_large -i [path_to_input_images_dir] -o [path_to_output_depth_dir]
         ```
 
-2. #### Generate `depth_params.json` file from the depth maps created on step *1.* 
+3. #### Generate `depth_params.json` file from the depth maps created on step *1.* 
       *this file will be used for the depth regularization for single chunk training. It needs to be generated for each chunk.*
 
    path to colmap填写的路径到sparse上一层即可
@@ -695,4 +697,5 @@ Note that the slurm scripts have not been thouroughly tested.
 * 少于100张不创建chunk：https://github.com/graphdeco-inria/hierarchical-3d-gaussians/issues/61
 * 要控制分块时，5000张图片自动会分成4个1500的块，因为块最大就是1500，但是如果指定块最少的帧为1500则直接raw chunk都不会生成
 * 直接生成depth和depth_params.json，参考Monocular depth maps中的步骤
+* 直接对https://github.com/graphdeco-inria/hierarchical-3d-gaussians/issues/13中提供的单个训练：直接将其作为chunk dir就行。sparse 0内有六个文件，cameras bin images bin points3d bin points3d ply depth params json test txt images里面是图片，根据要求直接放置或者分层放置 depths中也是直接放置或者分层放置
 
